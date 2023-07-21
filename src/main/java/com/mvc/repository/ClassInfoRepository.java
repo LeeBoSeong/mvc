@@ -25,7 +25,7 @@ public class ClassInfoRepository {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		List<Map<String, String>> classInfoList = new ArrayList();
+		List<Map<String, String>> classInfoList = new ArrayList<>();
 		try {
 			Connection con = DriverManager.getConnection(url,user,pwd);
 			String sql = "SELECT * FROM CLASS_INFO WHERE 1=1";

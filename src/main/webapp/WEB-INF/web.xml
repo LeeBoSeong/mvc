@@ -33,4 +33,40 @@
 		<servlet-name>lotto</servlet-name>
 		<url-pattern>/lotto/*</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>find</servlet-name>
+		<servlet-class>com.mvc.controller.FindServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>find</servlet-name>
+		<url-pattern>/find/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>user-info</servlet-name>
+		<servlet-class>com.mvc.controller.UserInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>user-info</servlet-name>
+		<url-pattern>/user-info/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>test-info</servlet-name>
+		<servlet-class>com.mvc.controller.TestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>test-info</servlet-name>
+		<url-pattern>/test-info/*</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>movie-info</servlet-name>
+		<servlet-class>com.mvc.controller.MovieInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>movie-info</servlet-name>
+		<url-pattern>/movie-info/*</url-pattern>
+	</servlet-mapping>
 </web-app>
