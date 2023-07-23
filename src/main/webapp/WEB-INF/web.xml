@@ -51,7 +51,7 @@
 		<servlet-name>user-info</servlet-name>
 		<url-pattern>/user-info/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>test-info</servlet-name>
 		<servlet-class>com.mvc.controller.TestServlet</servlet-class>
@@ -60,13 +60,22 @@
 		<servlet-name>test-info</servlet-name>
 		<url-pattern>/test-info/*</url-pattern>
 	</servlet-mapping>
-	
-		<servlet>
+
+	<servlet>
 		<servlet-name>movie-info</servlet-name>
 		<servlet-class>com.mvc.controller.MovieInfoServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>movie-info</servlet-name>
 		<url-pattern>/movie-info/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>market</servlet-name>
+		<servlet-class>com.mvc.controller.MarketInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>market</servlet-name>
+		<url-pattern>/market-info/*</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -59,7 +59,7 @@ public class ClassInfoRepository {
 		}
 		try {
 			Connection con = DriverManager.getConnection(url,user,pwd);
-			String sql = "SELECT * FROM CLASS_INFO WHERE 1=1";
+			String sql = "SELECT * FROM CLASS_INFO WHERE 1=1 ";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
