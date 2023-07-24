@@ -1,6 +1,7 @@
 package com.mvc.controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,9 +25,11 @@ public class MarketInfoServlet extends HttpServlet {
 			request.setAttribute("marketInfo", mkRepo.selectMarketInfoList());
 			path+="market-info/list.jsp";
 		}else if ("view".equals(uri)) {
-//			String mkNum = request.getParameter("mkNum");
-			request.setAttribute("mkOne", mkRepo.selectMakrketListOne(request.getParameter("mkNum")));
 			path+="market-info/view.jsp";
+			String mkNum = request.getParameter("mkNum");
+			Map<String, String> mkInfo = mkRepo.selectMakrketListOne(mkNum);
+			request.setAttribute("mkInfo", mkInfo);
+			
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);

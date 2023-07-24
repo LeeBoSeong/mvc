@@ -20,19 +20,9 @@ import com.mvc.common.DBCon;
 public class MovieInfoRepository {
 
 	public List<Map<String, String>> selectMovieList() {
-<<<<<<< HEAD
-		String driverName = "org.mariadb.jdbc.Driver";
-		String uri = "jdbc:mariadb://localhost:3306/kd";
-		String user = "root";
-		String pwd = "ll09130731";
-
-		try {
-			Class.forName(driverName);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	
 		List<Map<String, String>> movieList = new ArrayList<Map<String,String>>();
-		try (Connection con = DriverManager.getConnection(uri, user, pwd)) {
+		try (Connection con = DBCon.getCon()){
 			String sql = "SELECT * FROM MOVIE_INFO WHERE 1=1";
 			try (PreparedStatement ptstm = con.prepareStatement(sql)) {
 				try (ResultSet rs = ptstm.executeQuery()) {
@@ -55,38 +45,6 @@ public class MovieInfoRepository {
 		}
 
 		return movieList;
-	}
-	public static void main(String[] args) {
-		
-		MovieInfoRepository m = new MovieInfoRepository();
-		List<Map<String, String>>movieList = m.selectMovieList();
-		for(Map<String, String> map : movieList) {
-			System.out.println(map.toString());
-		}
-	}
-=======
-		List<Map<String, String>> movieInfoList = new ArrayList<Map<String, String>>();
-		try {
-			Connection con = DBCon.getCon();
-			String sql = "SELECT * FROM MOVIE_INFO WHERE 1=1";
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				Map<String, String> movie = new HashMap<String, String>();
-				movie.put("miNum", rs.getString("MI_NUM"));
-				movie.put("miTitle", rs.getString("MI_TITLE"));
-				movie.put("miDirector", rs.getString("MI_DIRECTOR"));
-				movie.put("miGenre", rs.getString("MI_GENRE"));
-				movie.put("miCredat", rs.getString("MI_CREDAT"));
-				movie.put("miCnt", rs.getString("MI_CNT"));
-				movieInfoList.add(movie);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return movieInfoList;
 	}
 
 	public Map<String, String> selectMovieListOne(String miNum) {
@@ -132,14 +90,7 @@ public class MovieInfoRepository {
 		}
 		return 0;
 	}
-
-	public static void main(String[] args) {
-		MovieInfoRepository movie = new MovieInfoRepository();
-		List<Map<String, String>> moviList = movie.selectMovieList();
-		for (Map<String, String> map : moviList) {
-			System.out.println(map.toString());
-		}
-	}
-
->>>>>>> branch 'master' of https://github.com/LeeBoSeong/mvc.git
 }
+	
+
+

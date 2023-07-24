@@ -59,9 +59,9 @@ public class UserInfoServlet extends HttpServlet {
 		String path = "/WEB-INF/views/common/msg.jsp";
 		if("insert".equals(uri)) {
 			Map<String, String> parm = new HashMap<String, String>();
-			parm.put("uiId", request.getParameter("uiId"));
-			parm.put("uiPwd",  request.getParameter("uiPwd"));
-			parm.put("uiName", request.getParameter("uiName"));
+			parm.put("uiId1", request.getParameter("uiId"));
+			parm.put("uiPwd1",  request.getParameter("uiPwd"));
+			parm.put("uiName1", request.getParameter("uiName"));
 			int result = uiRepo.insertUserInfo(parm);
 			request.setAttribute("msg", "회원 등록이 실패 하였습니다");
 			request.setAttribute("url", "/user-info/list");

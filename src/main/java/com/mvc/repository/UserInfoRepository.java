@@ -18,7 +18,6 @@ import com.mvc.common.DBCon;
 public class UserInfoRepository {
 
 	public List<Map<String, String>> selectUserInfoList() {
-
 		List<Map<String, String>> userInfoList = new ArrayList<Map<String, String>>();
 		try {
 			Connection con = DBCon.getCon();
