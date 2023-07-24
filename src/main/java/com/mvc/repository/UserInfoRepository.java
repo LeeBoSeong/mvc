@@ -13,22 +13,15 @@ import java.util.Map;
 
 import org.mariadb.jdbc.MariaDbConnection;
 
+import com.mvc.common.DBCon;
+
 public class UserInfoRepository {
 
 	public List<Map<String, String>> selectUserInfoList() {
-		String driverName = "org.mariadb.jdbc.Driver";
-		String url = "jdbc:mariadb://localhost:3307/kd";
-		String user = "root";
-		String pwd = "kd1824java";
 
-		try {
-			Class.forName(driverName);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		List<Map<String, String>> userInfoList = new ArrayList<Map<String, String>>();
 		try {
-			Connection con = DriverManager.getConnection(url, user, pwd);
+			Connection con = DBCon.getCon();
 			String sql = "SELECT * FROM USER_INFO WHERE 1=1";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
@@ -48,19 +41,9 @@ public class UserInfoRepository {
 	}
 	
 	public Map<String, String> selectUserInfoOne(String uiNum) {
-		String driverName = "org.mariadb.jdbc.Driver";
-		String url = "jdbc:mariadb://localhost:3307/kd";
-		String user = "root";
-		String pwd = "kd1824java";
 
 		try {
-			Class.forName(driverName);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			Connection con = DriverManager.getConnection(url, user, pwd);
+			Connection con = DBCon.getCon();
 			String sql = "SELECT * FROM USER_INFO WHERE 1=1 AND UI_NUM=?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,uiNum);
@@ -79,4 +62,48 @@ public class UserInfoRepository {
 		return null;
 	}
 
+	public int insertUserInfo(Map<String, String> userInfo) {
+		String sql = "INSERT INTO USER_INFO(UI_ID,UI_PWD,UI_NAME)";
+		sql+=" VALUES(?,?,?)";
+		Connection con = DBCon.getCon();
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userInfo.get("uiId"));
+			pstmt.setString(2, userInfo.get("uiPwd"));
+			pstmt.setString(3, userInfo.get("uiName"));
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int updateUserInfo(Map<String, String> userInfo) {
+		String sql = "UPDATE USER_INFO SET UI_ID=?, UI_PWD=?, UI_NAME =? WHERE UI_NUM=?";
+		Connection con = DBCon.getCon();
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userInfo.get("uiId"));
+			pstmt.setString(2, userInfo.get("uiPwd"));
+			pstmt.setString(3, userInfo.get("uiName"));
+			pstmt.setString(4, userInfo.get("uiNum"));
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int deleteUserInfo(String userNum) {
+		String sql = "DELETE FROM USER_INFO WHERE UI_NUM=?";
+		Connection con = DBCon.getCon();
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userNum);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

@@ -38,6 +38,9 @@ public class UserInfoServlet extends HttpServlet {
 			path += "user-info/insert.jsp";
 		}else if ("update".equals(uri)) {
 			path += "user-info/update.jsp";
+			String uiNum = request.getParameter("uiNum");
+			Map<String, String> userInfo = uiRepo.selectUserInfoOne(uiNum);
+			request.setAttribute("userInfo", userInfo);
 		}else if ("delete".equals(uri)) {
 			path += "user-info/delete.jsp";
 		}
@@ -49,8 +52,46 @@ public class UserInfoServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		String uri = request.getRequestURI();
+		int idx = uri.lastIndexOf("/");
+		uri = uri.substring(idx+1);
+		String path = "/WEB-INF/views/common/msg.jsp";
+		if("insert".equals(uri)) {
+			Map<String, String> parm = new HashMap<String, String>();
+			parm.put("uiId", request.getParameter("uiId"));
+			parm.put("uiPwd",  request.getParameter("uiPwd"));
+			parm.put("uiName", request.getParameter("uiName"));
+			int result = uiRepo.insertUserInfo(parm);
+			request.setAttribute("msg", "회원 등록이 실패 하였습니다");
+			request.setAttribute("url", "/user-info/list");
+			if(result == 1) {
+				request.setAttribute("msg", "회원 등록이 성공 하였습니다");
+			}
+		}else if ("update".equals(uri)) {
+			Map<String, String> parm = new HashMap<String, String>();
+			parm.put("uiId", request.getParameter("uiId"));
+			parm.put("uiPwd",  request.getParameter("uiPwd"));
+			parm.put("uiName", request.getParameter("uiName"));
+			parm.put("uiNum", request.getParameter("uiNum"));
+			int result = uiRepo.updateUserInfo(parm);
+			request.setAttribute("msg", "회원 수정이 실패 하였습니다");
+			request.setAttribute("url", "/user-info/update?uiNum="+request.getParameter("uiNum"));
+			if(result == 1) {
+				request.setAttribute("msg", "회원 수정이 성공 하였습니다");
+			}
+		}else if("delete".equals(uri)) {
+			String uiNum =request.getParameter("uiNum");
+			int result = uiRepo.deleteUserInfo(uiNum);
+			request.setAttribute("msg", "삭제가 실패 하였습니다");
+			request.setAttribute("url", "/user-info/view?uiNum="+request.getParameter("uiNum"));
+			if(result == 1) {
+				request.setAttribute("msg", "삭제가 성공 하였습니다");
+				request.setAttribute("url", "/user-info/list");
+			}
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(path);
+		rd.forward(request, response);
 	}
 
 }
