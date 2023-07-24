@@ -28,8 +28,10 @@
 		<td>${movieList.miCredat}</td>
 		<td>${movieList.miCnt}</td>
 	</tr>
-	
 	</c:forEach>
+	<tr>
+		<td align="right" colspan="6"><button onclick="location.href='movie-info/insert'">등록</button>
+	</tr>
 </table>
 </body>
 </html>
